@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
 # check=skip=InvalidDefaultArgInFrom
 
+
 ARG UV_IMAGE
 ARG MISE_IMAGE
 
