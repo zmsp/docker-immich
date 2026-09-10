@@ -46,20 +46,8 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository_owner }}/immich
           flavor: latest=false
+          # Original tags used conditional format() per variant (main vs other).
           tags: |
-            # ${{ inputs.variant == 'main' && format(
-            #   'type=raw,value=latest,enable={0}
-            #   type=semver,pattern={{{{version}}}},value={1},enable={0}
-            #   type=semver,pattern={{{{major}}}}.{{{{minor}}}},value={1},enable={0}
-            #   type=semver,pattern={{{{major}}}},value={1},enable={0}',
-            #   inputs.release, steps.opts.outputs.version
-            # ) || format(
-            #   'type=raw,value={0},enable={1}
-            #   type=semver,pattern={{{{version}}}}-{0},value={2},enable={1}
-            #   type=semver,pattern={{{{major}}}}.{{{{minor}}}}-{0},value={2},enable={1}
-            #   type=semver,pattern={{{{major}}}}-{0},value={2},enable={1}',
-            #   inputs.variant, inputs.release, steps.opts.outputs.version
-            # ) }}
             type=raw,value=cuda,enable=${{ inputs.release }}
             type=semver,pattern={{version}}-cuda,value=${{ steps.opts.outputs.version }},enable=${{ inputs.release }}
             type=semver,pattern=v{{version}}-cuda,value=${{ steps.opts.outputs.version }},enable=${{ inputs.release }}
