@@ -24,7 +24,8 @@ const tiffFixture = "TU0AKgAAACgAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAAAA/wAQAQA
 
 func TestSharpDecodesTIFF(t *testing.T) {
 	ctx := context.Background()
-	image := helpers.GetTestImage("immich:local-main")
+	// image := helpers.GetTestImage("immich:local-main")
+	image := helpers.GetTestImage("immich:local-cuda")
 
 	fixture, err := base64.StdEncoding.DecodeString(tiffFixture)
 	require.NoError(t, err)
@@ -71,7 +72,8 @@ func Test(t *testing.T) {
 	ctx := context.Background()
 	variant := os.Getenv("VARIANT")
 	if variant == "" {
-		variant = "main"
+		// variant = "main"
+		variant = "cuda"
 	}
 	image := helpers.GetTestImage("immich:local-" + variant)
 	t.Logf("testing image: %s", image)

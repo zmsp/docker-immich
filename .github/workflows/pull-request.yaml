@@ -29,7 +29,8 @@ jobs:
         uses: ./.github/actions/bake-matrix
         id: matrix
         with:
-          variants: '["main","noml","cuda","openvino"]'
+          # variants: '["main","noml","cuda","openvino"]'
+          variants: '["cuda"]'
 
   build:
     name: ${{ matrix.variant }} / Build and Test (${{ matrix.platform }})

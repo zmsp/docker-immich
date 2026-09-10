@@ -6,12 +6,12 @@ variable "OWNER" {
 
 variable "IMMICH_BASE_IMAGES_VERSION" {
   # renovate: datasource=github-tags depName=immich-app/base-images versioning=regex:^(?<major>\d{8})(?<minor>\d{4})$
-  default = "202608251107"
+  default = "202608300913"
 }
 
 variable "VERSION" {
   # renovate: datasource=github-tags depName=immich-app/immich versioning=semver
-  default = "v3.1.0"
+  default = "v3.2.0"
 }
 
 variable "NODEJS_VERSION" {
@@ -46,7 +46,8 @@ variable "SOURCE" {
 }
 
 group "default" {
-  targets = ["image-main-local"]
+  # targets = ["image-main-local"]
+  targets = ["image-cuda-local"]
 }
 
 target "image" {
@@ -64,31 +65,31 @@ target "image" {
   }
 }
 
-target "image-main" {
-  inherits  = ["image"]
-  target    = "final-main"
-  platforms = ["linux/amd64", "linux/arm64"]
-}
-
-target "image-main-local" {
-  inherits = ["image"]
-  target   = "final-main"
-  output   = ["type=docker"]
-  tags     = ["immich:local-main"]
-}
-
-target "image-noml" {
-  inherits  = ["image"]
-  target    = "final-noml"
-  platforms = ["linux/amd64", "linux/arm64"]
-}
-
-target "image-noml-local" {
-  inherits = ["image"]
-  target   = "final-noml"
-  output   = ["type=docker"]
-  tags     = ["immich:local-noml"]
-}
+# target "image-main" {
+#   inherits  = ["image"]
+#   target    = "final-main"
+#   platforms = ["linux/amd64", "linux/arm64"]
+# }
+# 
+# target "image-main-local" {
+#   inherits = ["image"]
+#   target   = "final-main"
+#   output   = ["type=docker"]
+#   tags     = ["immich:local-main"]
+# }
+# 
+# target "image-noml" {
+#   inherits  = ["image"]
+#   target    = "final-noml"
+#   platforms = ["linux/amd64", "linux/arm64"]
+# }
+# 
+# target "image-noml-local" {
+#   inherits = ["image"]
+#   target   = "final-noml"
+#   output   = ["type=docker"]
+#   tags     = ["immich:local-noml"]
+# }
 
 target "image-cuda" {
   inherits  = ["image"]
@@ -103,23 +104,23 @@ target "image-cuda-local" {
   tags     = ["immich:local-cuda"]
 }
 
-target "image-openvino" {
-  inherits  = ["image"]
-  target    = "final-openvino"
-  platforms = ["linux/amd64"]
-}
-
-target "image-openvino-local" {
-  inherits = ["image"]
-  target   = "final-openvino"
-  output   = ["type=docker"]
-  tags     = ["immich:local-openvino"]
-}
-
-group "image-multiarch" {
-  targets = ["image-main", "image-noml"]
-}
-
-group "image-amd64-only" {
-  targets = ["image-cuda", "image-openvino"]
-}
+# target "image-openvino" {
+#   inherits  = ["image"]
+#   target    = "final-openvino"
+#   platforms = ["linux/amd64"]
+# }
+# 
+# target "image-openvino-local" {
+#   inherits = ["image"]
+#   target   = "final-openvino"
+#   output   = ["type=docker"]
+#   tags     = ["immich:local-openvino"]
+# }
+# 
+# group "image-multiarch" {
+#   targets = ["image-main", "image-noml"]
+# }
+# 
+# group "image-amd64-only" {
+#   targets = ["image-cuda", "image-openvino"]
+# }
