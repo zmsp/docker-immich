@@ -1,6 +1,7 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: ["config:recommended"],
+  enabledManagers: ["regex"],
   customManagers: [
     {
       customType: "regex",
@@ -15,30 +16,34 @@
   ],
   packageRules: [
     {
-      description: ["Release Rules for Image Updates"],
+      description: ["Disable all dependencies except immich-app/immich"],
+      matchDepNames: ["node", "ghcr.io/astral-sh/uv", "ghcr.io/jdx/mise", "immich-app/base-images"],
+      enabled: false,
+    },
+    {
+      description: ["Auto-merge Immich release directly to branch without PR/MR"],
+      matchDepNames: ["immich-app/immich"],
+      ignoreUnstable: true,
       commitMessageExtra: "( {{currentVersion}} → {{newVersion}} )",
       commitMessageTopic: "{{depName}}",
       matchFileNames: ["docker-bake.hcl"],
       semanticCommitType: "release",
-    },
-    {
-      description: ["Auto-merge Bake Updates"],
-      matchFileNames: ["docker-bake.hcl"],
       automerge: true,
-      automergeType: "pr",
-      ignoreTests: false,
+      // automergeType: "pr",
+      automergeType: "branch",
+      ignoreTests: true,
     },
-    {
-      description: ["Manual Review for Toolchain Updates"],
-      matchFileNames: ["docker-bake.hcl"],
-      matchDepNames: ["node", "ghcr.io/astral-sh/uv", "ghcr.io/jdx/mise"],
-      automerge: false,
-    },
-    {
-      description: ["Manual Review for Immich Base Images"],
-      matchFileNames: ["docker-bake.hcl"],
-      matchDepNames: ["immich-app/base-images"],
-      automerge: false,
-    },
+    // {
+    //   description: ["Manual Review for Toolchain Updates"],
+    //   matchFileNames: ["docker-bake.hcl"],
+    //   matchDepNames: ["node", "ghcr.io/astral-sh/uv", "ghcr.io/jdx/mise"],
+    //   automerge: false,
+    // },
+    // {
+    //   description: ["Manual Review for Immich Base Images"],
+    //   matchFileNames: ["docker-bake.hcl"],
+    //   matchDepNames: ["immich-app/base-images"],
+    //   automerge: false,
+    // },
   ],
 }

@@ -3,8 +3,9 @@
 name: Pull Request
 
 on:
-  pull_request:
-  merge_group:
+  # pull_request:
+  # merge_group:
+  workflow_dispatch:
 
 permissions:
   contents: read
