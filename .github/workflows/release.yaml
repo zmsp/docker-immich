@@ -52,7 +52,7 @@ jobs:
         #     && fromJSON(format('["{0}"]', inputs.variant))
         #     || fromJSON('["main","noml","cuda","openvino"]')
         #   }}
-        variant: fromJSON('["cuda"]')
+        variant: ["cuda"]
     with:
       variant: ${{ matrix.variant }}
       release: ${{ github.event_name == 'workflow_dispatch' && inputs.release || github.event_name == 'push' }}
